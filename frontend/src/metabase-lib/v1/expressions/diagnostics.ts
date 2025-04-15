@@ -112,6 +112,7 @@ export function diagnoseAndCompile({
   } catch (error) {
     return {
       expression: null,
+      expressionParts: null,
       expressionClause: null,
       error: renderError(error),
     };
