@@ -58,12 +58,19 @@ export function Header({
   const saveButtonEnabled = isRenderable && (isDirty || allowSaveWhenPristine);
 
   return (
-    <Flex p="md" gap="md" align="center" className={className} data-testid="visualizer-header">
+    <Flex
+      p="md"
+      gap="md"
+      align="center"
+      className={className}
+      data-testid="visualizer-header"
+    >
       <ActionIcon onClick={() => dispatch(toggleDataSideBar())}>
         <Icon name="sidebar_open" />
       </ActionIcon>
       <EditableText
         initialValue={title}
+        isOptional
         onChange={handleChangeTitle}
         className={S.title}
       />
