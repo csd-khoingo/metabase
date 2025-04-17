@@ -2,7 +2,7 @@ import { t } from "ttag";
 
 import * as Lib from "metabase-lib";
 
-import { getClauseDefinition, getMBQLName } from "./config";
+import { getClauseDefinition } from "./config";
 import { ResolverError } from "./errors";
 import type { ExpressionType } from "./types";
 import { getNode } from "./utils";
@@ -48,22 +48,8 @@ export function resolve({
     if (typeof name !== "string") {
       throw new ResolverError(t`Invalid field name`, getNode(expression));
     }
-    try {
-      return fn(kind, name, expression);
-    } catch (err) {
-      // A second chance when field is not found:
-      // maybe it is a function with zero argument (e.g. Count, CumulativeCount)
-      const operator = getMBQLName(name);
-      const clause = operator && getClauseDefinition(operator);
-      if (clause && clause?.args.length === 0) {
-        return {
-          operator,
-          options: {},
-          args: [],
-        };
-      }
-      throw err;
-    }
+
+    return fn(kind, name, expression);
   }
 
   const clause = getClauseDefinition(operator);
