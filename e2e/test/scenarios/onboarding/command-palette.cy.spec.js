@@ -501,7 +501,7 @@ describe("shortcuts", { tags: ["@actions"] }, () => {
     // Sidesheet
     cy.realPress("]");
     cy.findByRole("dialog", { name: "Info" }).should("exist");
-    cy.realPress("]");
+    cy.realPress("]").wait(100);
     cy.findByRole("dialog", { name: "Info" }).should("not.exist");
 
     // Viz Settings
