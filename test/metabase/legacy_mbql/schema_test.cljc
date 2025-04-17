@@ -226,3 +226,16 @@
     [:segment 1]
     [:and [:expression "bool1"] [:expression "bool2"]]
     [:or  [:expression "bool1"] [:expression "bool2"]]))
+
+(deftest ^:parallel emptyable-filter-test
+  (are [x] (not (me/humanize (mr/explain ::mbql.s/Filter x)))
+    [:is-empty "" nil]
+    [:is-empty "A" nil]
+    [:is-empty [:field 1 nil] nil]
+    [:is-empty [:ltrim "A" nil] nil]
+    [:is-empty [:ltrim [:field 1 nil] nil] nil]
+    [:not-empty "" nil]
+    [:not-empty "A" nil]
+    [:not-empty [:field 1 nil] nil]
+    [:not-empty [:ltrim "A" nil] nil]
+    [:not-empty [:ltrim [:field 1 nil] nil] nil]))
